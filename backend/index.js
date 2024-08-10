@@ -1,6 +1,5 @@
 const cors = require("cors"); // Import the cors package
 const express = require("express");
-const session = require("express-session"); // Import express-session
 const mongoose = require("mongoose");
 const User = require("./models/User");
 
@@ -10,22 +9,12 @@ const PORT = process.env.PORT || 3000;
 // Use CORS middleware
 app.use(
   cors({
-    origin: "http://localhost:5173", // Allow requests from this origin
-    credentials: true, // Allow cookies to be sent with requests
+    origin: "http://localhost:5173", // Your Vite frontend URL
+    credentials: true, // Allow credentials (cookies) to be included in requests
   })
 );
 
 app.use(express.json()); // To parse JSON bodies
-
-// Setup express-session
-app.use(
-  session({
-    secret: "yourSecretKey", // Replace with a strong secret key
-    resave: false,           // Don't save session if unmodified
-    saveUninitialized: false, // Don't create session until something stored
-    cookie: { secure: false, httpOnly: true } // 'secure: true' requires HTTPS
-  })
-);
 
 // Test Route
 app.get("/", (req, res) => {
@@ -55,7 +44,7 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-//Login route
+// Login Route
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
@@ -74,43 +63,22 @@ app.post("/login", async (req, res) => {
       return res.status(400).json({ success: false, message: "Incorrect password" });
     }
 
-    // If the username and password are correct
-    // Store user information in the session
-    req.session.user = {
+    // If the username and password are correct, return user details
+    res.json({
+      success: true,
       username: user.username,
       access_level: user.access_level,
-    };
-
-    res.json({ success: true, username: user.username, access_level: user.access_level });
+    });
   } catch (error) {
     // Handle any errors
     res.status(500).json({ success: false, message: error.message });
   }
 });
 
-
-// check session route
-app.get('/check-session', (req, res) => {
-  if (req.session.user) {
-    res.json({
-      success: true,
-      username: req.session.user.username,
-      access_level: req.session.user.access_level,
-    });
-  } else {
-    res.json({ success: false, message: "Not logged in" });
-  }
-});
-
-
-// Logout Route
+// Logout Route (if using client-side storage for authentication, this would clear the client-side storage)
 app.post("/logout", (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      return res.status(500).send("Error: " + err.message);
-    }
-    res.send("Logged out successfully!");
-  });
+  // Perform any necessary cleanup or invalidation if needed
+  res.send("Logged out successfully!");
 });
 
 mongoose.connect("mongodb://localhost:27017/mydatabase", {
