@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload Image</title>
+    <link
+      rel="stylesheet"
+      href="../../../frontend/src/css/main/style_main.css"
+    />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="../../../frontend/src/Images/Icons/logo_transparent_white.png?v=1"
+    />
+    <style>
+      body {
+        background-color: rgb(5, 0, 35);
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="./index.html" class="logo">
+        <p>Orbit</p>
+        <img src="../Images/Icons/logo_transparent_white.png" alt="" />
+        <p>Pedia</p>
+      </a>
+      <nav>
+        <a href="./index_simulation.html" target="_self">Satellite Tracker</a>
+        <a href="./index_rockets.html">Rockets</a>
+        <a href="./index.html" target="_self">Classifier</a>
+        <a href="./index_login.html"><div class="profile">Login</div></a>
+      </nav>
+    </header>
+
+    <section class="hero" id="hero">
+      <h1 class="upload_h1">Upload an Image</h1>
+      <form
+        class="upload_form"
+        action="{{ url_for('upload_image') }}"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <input
+          class="upload_input"
+          type="file"
+          name="file"
+          accept="image/*"
+          required
+        />
+        <button class="upload_button" type="submit">Upload</button>
+      </form>
+
+      {% if message %}
+      <p>{{ message }}</p>
+      {% endif %}
+    </section>
+
+    <footer>
+      <div class="col">
+        <h3>Services</h3>
+        <ul>
+          <li>
+            <a href="../../../frontend/src/index.html#simulation"
+              >Satellite Tracker</a
+            >
+          </li>
+          <li>
+            <a href="../../../frontend/src/index.html#rockets"
+              >Rocket Gallery</a
+            >
+          </li>
+          <li>
+            <a href="../../../frontend/src/index.html#classifier">Classifier</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col">
+        <h3>Extra Links</h3>
+        <ul>
+          <li><a href="">Homepage</a></li>
+          <li><a href="../../../frontend/src/index_login.html">Login</a></li>
+          <li><a href="../../../frontend/src/index_signup.html">Signup</a></li>
+          <li><a href="#">Profile</a></li>
+        </ul>
+      </div>
+
+      <div class="col">
+        <h3>Reach Out</h3>
+
+        <div class="social">
+          <a href="https://www.linkedin.com/in/jyot-kikani"
+            ><img src="../Images/Icons/linkedin.png" alt="" /> Jyot Kikani</a
+          >
+          <a href="https://www.linkedin.com/in/jay-gor-a26424226/"
+            ><img src="../Images/Icons/linkedin.png" alt="" /> Jay Gor</a
+          >
+          <a href="https://www.linkedin.com/in/jemil-patel-2a2196286/"
+            ><img src="../Images/Icons/linkedin.png" alt="" /> Jemil Patel</a
+          >
+          <a href="https://www.linkedin.com/in/karm-dave-0475a1275/"
+            ><img src="../Images/Icons/linkedin.png" alt="" /> Karm Dave</a
+          >
+        </div>
+      </div>
+    </footer>
+    <script>
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth",
+          });
+        });
+      });
+    </script>
+    <style>
+      /* Style for the upload header */
+      .upload_h1 {
+        text-align: center;
+        font-size: 2em;
+        margin-bottom: 20px;
+        color: #ffffff;
+      }
+
+      /* Style for the upload form */
+      .upload_form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* border: 2px solid #ddd; */
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #151515;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      /* Style for the file input */
+      .upload_input {
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 2px solid #272727;
+        border-radius: 5px;
+        width: 100%;
+      }
+
+      /* Style for the upload button */
+      .upload_button {
+        background-color: #233d58;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 1em;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      /* Change button color on hover */
+      .upload_button:hover {
+        background-color: #0056b3;
+      }
+
+      @import url("https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+      @import url("https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+        user-select: none;
+        text-decoration: none;
+      }
+
+      ::-webkit-scrollbar {
+        display: none;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      header {
+        /* border: 1px solid red; */
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 80px;
+        padding: 25px;
+        background-color: rgba(0, 0, 0, 0.551);
+        /* background-color: black; */
+        backdrop-filter: blur(10px);
+        color: #fff;
+        z-index: 10;
+      }
+
+      header .logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: fit-content;
+        height: inherit;
+        /* border: 1px solid red; */
+        font-size: 24px;
+        letter-spacing: 1.75px;
+        font-weight: 800;
+        font-family: "Orbitron", "Poppins", serif;
+      }
+
+      header .logo img {
+        display: block;
+        position: absolute;
+        left: 86px;
+        top: 20px;
+        height: 70%;
+        margin-top: -20px;
+        transform: rotateZ(28deg);
+        animation: logo_animate 8s ease-out 2s infinite forwards;
+      }
+
+      header .logo p:first-child {
+        /* border: 10px solid red; */
+        margin-right: 40px;
+        /* display: block; */
+      }
+
+      @keyframes logo_animate {
+        0% {
+          transform: rotateZ(28deg);
+          height: 70%;
+        }
+        7% {
+          height: 60%;
+        }
+        12% {
+          transform: rotateZ(387deg);
+          height: 70%;
+        }
+        100% {
+          transform: rotateZ(387deg);
+          height: 70%;
+        }
+      }
+
+      nav > a {
+        /* border: 1px solid greenyellow; */
+        display: inline-block;
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        font-size: 14px;
+        /* line-height: 40px; */
+        /* vertical-align: baseline; */
+        transition: 0.25s ease-out;
+        margin: 42.5px 25px 0px 0px;
+        transform: translateY(-50%);
+        border-bottom: 5px solid transparent;
+      }
+
+      nav > a:hover {
+        border-bottom: 5px solid #fff;
+        /* margin-top: 25px; */
+      }
+
+      nav {
+        /* display: flex; */
+        /* justify-content: space-between; */
+        /* width: 40%; */
+        width: fit-content;
+        /* border: 1px solid yellow; */
+        height: 80px;
+      }
+
+      header .profile {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        transition: 0.25s ease-out;
+        border-bottom: 5px solid transparent;
+        font-size: 14px;
+      }
+
+      section.hero {
+        /* margin-top: 80px; */
+        height: 590px;
+        padding-top: 80px;
+      }
+
+      section {
+        /* border: 1px solid rgb(255, 255, 255); */
+        /* margin-bottom: 10px; */
+        padding: 10px;
+        height: fit-content;
+        padding: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      section.hero {
+        background-image: url("../../Images/Homepage/hero_bg.jpeg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        overflow: hidden;
+        position: relative;
+        /* z-index: 1; */
+      }
+
+      section.hero > h1 {
+        width: 80%;
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 50px;
+        margin-top: -100px;
+        letter-spacing: 1.5px;
+        z-index: 1;
+      }
+
+      section.hero > h2 {
+        color: #ffffffa3;
+        font-weight: 500;
+        text-transform: capitalize;
+        letter-spacing: 1px;
+        text-align: center;
+        z-index: 1;
+      }
+
+      section.hero > img {
+        width: 1800px;
+        /* width: 125%; */
+        position: absolute;
+        /* bottom: -1300px; */
+        top: 250px;
+        animation: rotate_earth 300s linear infinite;
+        /* border: 1px solid yellow; */
+        /* z-index: 0; */
+      }
+
+      .blend {
+        height: 0px;
+        width: 100%;
+        box-shadow: 0px 0px 30px 30px rgba(0, 0, 0, 0.503);
+      }
+
+      #blend1 {
+        backdrop-filter: blur(10px);
+        box-shadow: 0px 0px 30px 30px rgb(0, 0, 0);
+      }
+
+      @keyframes rotate_earth {
+        from {
+          transform: rotateZ(0deg);
+        }
+        to {
+          transform: rotateZ(-360deg);
+        }
+      }
+
+      section.quote {
+        background-image: url("../../Images/Homepage/starry_bg.jpg");
+        background-size: cover;
+        background-position: center;
+        height: fit-content;
+        padding: 70px 0px;
+      }
+
+      section.quote > .quote_text {
+        width: 60%;
+        height: fit-content;
+        font-size: 32px;
+        font-family: "Montserrat", "Poppins", sans-serif;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        line-height: 45px;
+        /* backdrop-filter: blur(1px); */
+        /* background-color: rgba(0, 0, 0, 0.433); */
+        padding: 40px 40px 25px;
+        /* border: 1px solid red; */
+        /* border-radius: 50px; */
+        text-align: justify;
+      }
+
+      section.quote > .quote_text > div {
+        font-size: 14px;
+        color: #ffffffb6;
+        /* border: 1px solid yellow; */
+        text-align: end;
+        margin-top: 5px;
+      }
+
+      section.stats {
+        flex-direction: row;
+        justify-content: space-around;
+        background-image: url("../../Images/Homepage/launch_bg.jpg");
+        background-size: cover;
+        background-position: bottom;
+        /* border: 1px solid white;  */
+      }
+
+      section.stats > .card {
+        padding: 25px;
+        background-color: #1c1c1c69;
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        width: 250px;
+        height: 250px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      section.stats > .card:not(:last-child) {
+        margin-right: 15px;
+      }
+
+      @property --numAstro {
+        syntax: "<integer>";
+        initial-value: 0;
+        inherits: false;
+      }
+
+      section.stats .astroCount {
+        /* border: 1px solid greenyellow; */
+        animation: astroCounter 5s 1 ease-in 5s forwards;
+        counter-reset: num var(--numAstro);
+        font: 800 34px system-ui;
+        /* padding: 2rem; */
+        text-align: center;
+        margin-bottom: 15px;
+      }
+
+      section.stats .astroCount::before {
+        content: counter(num);
+      }
+
+      @keyframes astroCounter {
+        from {
+          --numAstro: 0;
+        }
+        to {
+          --numAstro: 644;
+        }
+      }
+
+      @property --numLaunch {
+        syntax: "<integer>";
+        initial-value: 0;
+        inherits: false;
+      }
+
+      section.stats .launchCount {
+        /* border: 1px solid greenyellow; */
+        animation: launchCounter 6s 1 ease-in 5s forwards;
+        counter-reset: num var(--numLaunch);
+        font: 800 34px system-ui;
+        /* padding: 2rem; */
+        text-align: center;
+        margin-bottom: 15px;
+      }
+
+      section.stats .launchCount::before {
+        content: counter(num);
+      }
+
+      @keyframes launchCounter {
+        from {
+          --numLaunch: 0;
+        }
+        to {
+          --numLaunch: 5298;
+        }
+      }
+
+      @property --numSat {
+        syntax: "<integer>";
+        initial-value: 0;
+        inherits: false;
+      }
+
+      section.stats .satCount {
+        /* border: 1px solid greenyellow; */
+        animation: satCounter 7s 1 ease-in 5s forwards;
+        counter-reset: num var(--numSat);
+        font: 800 34px system-ui;
+        /* padding: 2rem; */
+        text-align: center;
+        margin-bottom: 15px;
+      }
+
+      section.stats .satCount::before {
+        content: counter(num);
+      }
+
+      @keyframes satCounter {
+        from {
+          --numSat: 0;
+        }
+        to {
+          --numSat: 9494;
+        }
+      }
+
+      section.stats .text {
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-align: center;
+      }
+
+      section.simulation,
+      section.classifier {
+        background-image: url("../../Images/Homepage/starry_bg.jpg");
+        background-position: center;
+        background-size: cover;
+      }
+
+      section.rockets {
+        background-image: url("../../Images/Homepage/launch_dark_bg.jpg");
+        background-position: center;
+        background-size: cover;
+      }
+
+      section.simulation .container,
+      section.rockets .container,
+      section.classifier .container {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+        /* border: 1px solid yellow; */
+        width: 95%;
+        /* height: 450px; */
+        height: fit-content;
+        padding: 30px;
+        background-color: #2525255e;
+        backdrop-filter: blur(1px);
+        border-radius: 15px;
+      }
+
+      section.simulation .card,
+      section.rockets .card,
+      section.classifier .card {
+        /* border: 1px solid skyblue; */
+        padding: 30px;
+        padding-bottom: 0px;
+        width: 500px;
+        height: 400px;
+        /* height: fit-content; */
+        /* background-color: #1c1c1cbd; */
+        /* backdrop-filter: blur(10px); */
+        border-radius: 15px;
+      }
+
+      section.simulation .image {
+        background-image: url("../../Images/Homepage/tracker_ss.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        /* box-shadow: 0px 0px 10px 15px rgb(0, 0, 0); */
+      }
+
+      section.rockets .image {
+        background-image: url("../../Images/Homepage/rockets_ss.jpg");
+        background-size: 220%;
+        background-repeat: no-repeat;
+        background-position: bottom;
+        /* box-shadow: 0px 0px 10px 15px rgb(0, 0, 0); */
+      }
+
+      section.classifier .image {
+        background-image: url("../../Images/Homepage/galaxy.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      section.simulation h1,
+      section.rockets h1,
+      section.about h1,
+      section.classifier h1 {
+        letter-spacing: 1.25px;
+      }
+
+      section.simulation h2,
+      section.rockets h2,
+      section.classifier h2 {
+        font-size: 18px;
+        color: #ffffff7d;
+        font-weight: 600;
+        margin-bottom: 20px;
+      }
+
+      section.simulation p,
+      section.rockets p,
+      section.about p,
+      section.classifier p {
+        font-size: 16px;
+        letter-spacing: 1.1px;
+        line-height: 30px;
+      }
+
+      section.simulation a,
+      section.grid a,
+      section.rockets a,
+      section.classifier a {
+        display: block;
+        padding: 15px;
+        width: fit-content;
+        font-weight: 600;
+        font-size: 14px;
+        text-transform: uppercase;
+        border-radius: 20px;
+        transition: 0.25s;
+        background-color: transparent;
+        border: 1px solid white;
+        color: white;
+        margin-top: 25px;
+      }
+
+      section.simulation a:hover,
+      section.grid a:hover,
+      section.rockets a:hover,
+      section.classifier a:hover {
+        background-color: white;
+        border-color: transparent;
+        color: black;
+      }
+
+      .hidden {
+        opacity: 0;
+        transition: all 1s ease-in-out;
+        filter: blur(5px);
+        transform: translateX(-100%);
+      }
+
+      .show {
+        opacity: 1;
+        filter: blur(0px);
+        transform: translateX(0);
+      }
+
+      section.stats .card:nth-child(2) {
+        transition-delay: 200ms;
+      }
+
+      section.stats .card:nth-child(3) {
+        transition-delay: 400ms;
+      }
+
+      section.simulation .card:nth-child(2) {
+        transition-delay: 200ms;
+      }
+
+      section.rockets .card:nth-child(2) {
+        transition-delay: 200ms;
+      }
+
+      section.classifier .card:nth-child(2) {
+        transition-delay: 200ms;
+      }
+
+      footer {
+        display: flex;
+        justify-content: center;
+        align-items: top;
+        background-color: #252525;
+        /* margin-top: 40px; */
+      }
+
+      footer .col:not(:first-child) {
+        margin-left: 80px;
+      }
+
+      footer .col {
+        width: 18%;
+        /* border: 5px solid white; */
+        padding: 20px;
+      }
+
+      footer h3 {
+        margin-bottom: 15px;
+        font-size: 24px;
+        font-weight: 600;
+        letter-spacing: 1.6px;
+      }
+
+      footer ul {
+        list-style: none;
+      }
+
+      footer li::before {
+        background-image: url("../../Images/Icons/logo_transparent_white.png");
+        content: "";
+        background-size: contain;
+        display: inline-block;
+        margin-right: 10px;
+        height: 15px;
+        width: 15px;
+      }
+
+      footer li {
+        margin-bottom: 5px;
+        transition: 0.5s;
+      }
+
+      footer li:hover {
+        margin-left: 25px;
+      }
+
+      footer img {
+        width: 20px;
+        margin-right: 10px;
+      }
+      footer .social a {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+    </style>
+  </body>
+</html>
