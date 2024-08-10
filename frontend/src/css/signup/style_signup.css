@@ -1,0 +1,131 @@
+form {
+  margin: 100px auto 0px;
+  width: 800px;
+  height: 470px;
+}
+
+.signup_container {
+  width: 800px;
+  height: 470px;
+  background-color: #232323;
+  box-shadow: 0 4px 12px 0 rgba(255, 255, 255, 0.129);
+  padding: 20px 30px 10px;
+  border-radius: 15px;
+}
+
+.signup_container h2 {
+  color: rgb(255, 255, 255);
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.signup_container input,
+.signup_container select {
+  width: 100%;
+  padding: 11px 12px;
+  margin: 10px 0px;
+  border-radius: 3px;
+  border: none;
+  outline: 1px solid rgb(104, 104, 104);
+  transition: 0.25s;
+  background-color: #2b2b2b;
+  color: #fff;
+  /* outline-color: red; */
+}
+
+::placeholder {
+  font-size: 12px;
+  letter-spacing: 0.25px;
+  opacity: 75%;
+  color: #fff;
+}
+
+.signup_container input:focus {
+  outline: 1px solid #ffffff;
+  background-color: #0e0e0e;
+}
+
+.signup_container p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 13px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.signup_container p a {
+  color: rgb(99, 169, 223);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.submit_button {
+  width: 100%;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  background-color: rgb(99, 169, 223);
+  border: none;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 12px;
+  border-radius: 2px;
+  letter-spacing: 0.5px;
+  transition: 0.1s;
+}
+
+.submit_button:hover {
+  background-color: rgb(152, 210, 255);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cols {
+  width: 50%;
+  height: 65%;
+  /* border: 1px solid red; */
+  margin-right: -5px;
+  /* margin-bottom: 10px; */
+  padding: 20px;
+  color: #ffffff;
+}
+
+.col1 {
+  padding-left: 0px;
+  border-right: 1px solid rgba(0, 0, 0, 0.123);
+  float: left;
+}
+
+.col2 {
+  float: right;
+}
+
+.signup_container h3 {
+  font-size: 15px;
+  /* border: 2px solid red; */
+  display: inline-block;
+}
+
+.required {
+  color: red;
+}
+
+.warning {
+  display: inline-block;
+  /* border: 2px solid blue; */
+  font-size: 11px;
+  margin-left: 10px;
+  color: #ff6464;
+}
+
+#country {
+  width: fit-content;
+  font-size: 12px;
+  letter-spacing: 0.25px;
+  opacity: 75%;
+}
+
+#number {
+  width: fit-content;
+  margin-left: 15px;
+}

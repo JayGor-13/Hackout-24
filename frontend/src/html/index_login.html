@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="../css/main/style_main.css" />
+    <link rel="stylesheet" href="../css/login/style_login.css" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="../Images/Icons/logo_transparent_white.png?v=1"
+    />
+    <style>
+      body {
+        /* background-color: rgb(5, 0, 35); */
+        background-image: url("../Images/login/login_bg.jpg");
+        background-size: cover;
+        background-position: center;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="index.html#hero" class="logo">
+        <p>Orbit</p>
+        <img src="../Images/Icons/logo_transparent_white.png" alt="" />
+        <p>Pedia</p>
+      </a>
+      <nav>
+        <a href="index.html#simulation" target="_self">Satellite Tracker</a>
+        <a href="index.html#rockets">Rockets</a>
+        <a href="index.html#about">About</a>
+        <a href="index_login.html"><div class="profile">Login</div></a>
+      </nav>
+    </header>
+
+    <div class="login_container">
+      <div class="info">
+        <form name="login_form" onsubmit="" novalidate>
+          <h2>Login</h2>
+          <div class="warning" id="username_warn"></div>
+          <input type="text" placeholder="Username" id="username" />
+          <div class="warning" id="password_warn"></div>
+          <input type="password" placeholder="Password" id="password" />
+
+          <p>
+            By continuing, I agree to the <a href="#">Terms of Use</a> &
+            <a href="#">Privacy Policy</a>
+          </p>
+
+          <button type="submit" class="submit_button">Submit</button>
+
+          <p>Not an existing user? <a href="index_signup.html">Sign Up</a></p>
+        </form>
+      </div>
+    </div>
+
+    <footer>
+      <div class="col">
+        <h3>Services</h3>
+        <ul>
+          <li><a href="index.html#simulation">Satellite Tracker</a></li>
+          <li><a href="index.html#rockets">Rocket Gallery</a></li>
+          <li><a href="index.html#about">About</a></li>
+        </ul>
+      </div>
+
+      <div class="col">
+        <h3>Extra Links</h3>
+        <ul>
+          <li><a href="">Homepage</a></li>
+          <li><a href="index_login.html">Login</a></li>
+          <li><a href="index_signup.html">Signup</a></li>
+          <li><a href="#">Profile</a></li>
+        </ul>
+      </div>
+
+      <div class="col">
+        <h3>Reach Out</h3>
+
+        <div class="social">
+          <a href="https://www.linkedin.com/in/jyot-kikani"><img src="../Images/Icons/linkedin.png" alt=""></a>
+          <a href="https://github.com/Jyot-Kikani"><img src="../Images/Icons/github.png" alt=""></a>
+          <a href="https://www.instagram.com/jyot_kikani05/"><img src="../Images/Icons/instagram.png" alt=""></a>
+          <a href="https://twitter.com/JyotKikani"><img src="../Images/Icons/twitter.png" alt=""></a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth",
+          });
+        });
+      });
+    </script>
+    <script>
+      const loginForm = document.forms['login_form'];
+    
+      loginForm.onsubmit = async (e) => {
+        e.preventDefault(); // Prevent the form from submitting the traditional way
+    
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+    
+        try {
+          const response = await fetch('http://localhost:3000/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password }),
+          });
+    
+          const result = await response.text();
+    
+          if (response.ok) {
+            alert(result); // Show success message
+            // Redirect to a protected page or homepage after successful login
+            window.location.href = 'index.html';
+          } else {
+            alert('Login failed: ' + result); // Show error message
+          }
+        } catch (error) {
+          console.error('Error during login:', error);
+        }
+      };
+    </script>    
+
+    <script type="module" src="../js/validation/script_validation.js"></script>
+  </body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signup</title>
+    <link rel="stylesheet" href="../css/main/style_main.css" />
+    <link rel="stylesheet" href="../css/signup/style_signup.css" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="../Images/Icons/logo_transparent_white.png?v=1"
+    />
+    <style>
+      body {
+        /* background-color: rgb(5, 0, 35); */
+        background-image: url("../Images/login/login_bg.jpg");
+        background-size: cover;
+        background-position: center;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="index.html#hero" class="logo">
+        <p>Orbit</p>
+        <img src="../Images/Icons/logo_transparent_white.png" alt="" />
+        <p>Pedia</p>
+      </a>
+      <nav>
+        <a href="index.html#simulation" target="_self">Satellite Tracker</a>
+        <a href="index.html#rockets">Rockets</a>
+        <a href="index.html#about">About</a>
+        <a href="index_login.html"><div class="profile">Login</div></a>
+      </nav>
+    </header>
+
+    <form name="signup_form" onsubmit="" novalidate>
+      <div class="signup_container">
+        <h2>Signup</h2>
+
+        <div class="cols col1">
+          <h3>
+            <label for="first_name">
+              First Name <span class="required">*</span>
+            </label>
+          </h3>
+          <div class="warning" id="first_name_warn"></div>
+          <input
+            type="text"
+            name="first_name"
+            id="first_name"
+            placeholder="Enter Your First Name"
+          />
+          <h3>
+            <label for="last_name">
+              Last Name <span class="required">*</span>
+            </label>
+          </h3>
+          <div class="warning" id="last_name_warn"></div>
+          <input
+            type="text"
+            name="last_name"
+            id="last_name"
+            placeholder="Enter Your Last Name"
+          />
+          <!-- <h3>
+            <label for="address">
+              Address <span class="required">*</span>
+            </label>
+          </h3>
+          <div class="warning" id="address_warn"></div>
+          <input
+            type="text"
+            name="address"
+            id="address"
+            placeholder="Enter your Address"
+          /> -->
+          <h3>
+            <label for="email">
+              E-Mail ID <span class="required">*</span>
+            </label>
+          </h3>
+          <div class="warning" id="email_warn"></div>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Eg. myntra@gmail.com"
+          />
+        </div>
+
+        <div class="cols col2">
+          <h3>
+            <label for="username">
+              Username <span class="required">*</span>
+            </label>
+          </h3>
+          <div class="warning" id="username_warn"></div>
+          <input
+            type="text"
+            name="username"
+            id="username"
+            placeholder="Enter a Unique Username"
+          />
+
+          <h3>
+            <label for="password">
+              Password <span class="required">*</span>
+            </label>
+          </h3>
+          <div class="warning" id="password_warn"></div>
+          <input
+            type="text"
+            name="password"
+            id="password"
+            placeholder="Enter a Valid Password"
+          />
+
+          <h3>Access Level <span class="required">*</span></h3>
+          <select>
+            <option value="tier0">Basic</option>
+            <option value="tier1">Tier 1</option>
+            <option value="tier2">Tier 2</option>
+          </select>
+        </div>
+
+        <p>
+          By continuing, I agree to the <a href="#">Terms of Use</a> &
+          <a href="#">Privacy Policy</a>
+        </p>
+
+        <button type="submit" class="submit_button">Submit</button>
+
+        <p>Already registered? <a href="index_login.html">Log In</a></p>
+      </div>
+    </form>
+
+    <footer>
+      <div class="col">
+        <h3>Services</h3>
+        <ul>
+          <li><a href="index.html#simulation">Satellite Tracker</a></li>
+          <li><a href="index.html#rockets">Rocket Gallery</a></li>
+          <li><a href="index.html#about">About</a></li>
+        </ul>
+      </div>
+
+      <div class="col">
+        <h3>Extra Links</h3>
+        <ul>
+          <li><a href="">Homepage</a></li>
+          <li><a href="index_login.html">Login</a></li>
+          <li><a href="index_signup.html">Signup</a></li>
+          <li><a href="#">Profile</a></li>
+        </ul>
+      </div>
+
+      <div class="col">
+        <h3>Reach Out</h3>
+
+        <div class="social">
+          <a href="https://www.linkedin.com/in/jyot-kikani"
+            ><img src="../Images/Icons/linkedin.png" alt=""
+          /></a>
+          <a href="https://github.com/Jyot-Kikani"
+            ><img src="../Images/Icons/github.png" alt=""
+          /></a>
+          <a href="https://www.instagram.com/jyot_kikani05/"
+            ><img src="../Images/Icons/instagram.png" alt=""
+          /></a>
+          <a href="https://twitter.com/JyotKikani"
+            ><img src="../Images/Icons/twitter.png" alt=""
+          /></a>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="../js/validation/script_validation.js"></script>
+    <script>
+      document
+        .querySelector('form[name="signup_form"]')
+        .addEventListener("submit", async function (event) {
+          event.preventDefault(); // Prevent default form submission
+
+          const data = {
+            first_name: document.getElementById("first_name").value,
+            last_name: document.getElementById("last_name").value,
+            email: document.getElementById("email").value,
+            username: document.getElementById("username").value,
+            password: document.getElementById("password").value,
+            access_level: document.querySelector("select").value,
+          };
+
+          try {
+            const response = await fetch("http://localhost:3000/signup", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            });
+
+            if (response.ok) {
+              alert("Signup successful!");
+            } else {
+              alert("Signup failed!");
+            }
+          } catch (error) {
+            console.error("Error:", error);
+          }
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Orbit-O-Pedia</title>
+    <link rel="stylesheet" href="../css/main/style_main.css" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="../Images/Icons/logo_transparent_white.png?v=1"
+    />
+    <style>
+      body {
+        background-color: rgb(5, 0, 35);
+        color: #fff;
+      }
+    </style>
+
+    <script defer type="module" src="../js/scroll/script_scroll.js"></script>
+  </head>
+  <body>
+    <header>
+      <a href="#hero" class="logo">
+        <p>Orbit</p>
+        <img src="../Images/Icons/logo_transparent_white.png" alt="" />
+        <p>Pedia</p>
+      </a>
+      <nav>
+        <a href="#simulation" target="_self">Satellite Tracker</a>
+        <a href="#rockets">Rockets</a>
+        <a href="#about">About</a>
+        <a href="index_login.html"><div class="profile">Login</div></a>
+      </nav>
+    </header>
+
+    <section class="hero" id="hero">
+      <!-- <h1>Ignite your passion with thrilling rocket launches and satellite tracking!</h1> -->
+      <h1>Ignite your passion</h1>
+      <h2>With Thrilling rocket launches and satellite tracking</h2>
+      <img src="../Images/Homepage/hero_earth.png" alt="" />
+    </section>
+    <div class="blend" id="blend1"></div>
+    <section class="quote">
+      <div class="quote_text hidden">
+        Today the stars and tomorrow the galaxies. No force exists in the
+        Universe that can stop us
+        <div>-- James P. Hogan</div>
+      </div>
+    </section>
+    <!-- <div class="blend"></div> -->
+    <section class="stats">
+      <div class="card hidden">
+        <div class="astroCount"></div>
+        <div class="text">Astronauts</div>
+      </div>
+      <div class="card hidden">
+        <div class="launchCount"></div>
+        <div class="text">Rocket Launches</div>
+      </div>
+      <div class="card hidden">
+        <div class="satCount"></div>
+        <div class="text">Active Satellites</div>
+      </div>
+    </section>
+    <section class="simulation" id="simulation">
+      <div class="container">
+        <div class="card image hidden"></div>
+        <div class="card info hidden">
+          <h1>Real Time 3D Satellite Tracker</h1>
+          <h2>Built Using ThreeJS</h2>
+
+          <p>
+            Experience the marvels of space with our real-time 3D satellite
+            tracker. Seamlessly navigate thousands of satellites around Earth
+            and explore their orbits and movements. Perfect for enthusiasts and
+            professionals alike. Begin your journey now.
+          </p>
+
+          <a href="index_simulation.html" target="_self">Open Tracker</a>
+        </div>
+      </div>
+    </section>
+    <section class="rockets" id="rockets">
+      <div class="container">
+        <div class="card info hidden">
+          <h1>Gallery of All Major Rockets</h1>
+          <h2>With Detailed Information</h2>
+
+          <p>
+            Dive into the history of space exploration with our curated gallery
+            showcasing the most influential rockets to date. Discover detailed
+            information and fascinating facts about these marvels of
+            engineering.
+          </p>
+
+          <a href="index_rockets.html" target="_self">Open Gallery</a>
+        </div>
+        <div class="card image hidden"></div>
+      </div>
+    </section>
+    <section class="about" id="about">
+      <div class="card hidden">
+        <h1>A Platform for Spaceflight Enthusiasts</h1>
+        <p>Whether you're a seasoned enthusiast or a budding explorer, Orbit-O-Pedia offers a wealth of resources to fuel your passion for space. Join our community of like-minded individuals and stay updated on the latest launches and historical missions. From the wonders of the universe to the intricacies of rocket technology, Orbit-O-Pedia is your go-to destination for all things space. Embark on an interstellar journey with us today!</p>
+      </div>
+      <div class="card hidden">
+        <h1>What is ThreeJS?</h1>
+        <p>Three.js enables us to render stunning three-dimensional graphics directly in your web browser, allowing you to explore the cosmos with ease. By harnessing the power of modern web technology, Orbit-O-Pedia delivers dynamic and interactive visuals, bringing the wonders of space right to your fingertips. Join us as we delve into the mechanics of our satellite tracker and discover the magic of Three.js in action. Let's embark on a journey through the stars together!</p>
+      </div>
+      <div class="card hidden">
+        <h1>More Features to Come!</h1>
+        <p>We're thrilled to announce that our next exciting addition will be the "Celestial Events Calendar." Stay informed about upcoming astronomical phenomena such as meteor showers, eclipses, and planetary alignments, all conveniently curated in one place. With the Celestial Events Calendar, you'll never miss a celestial spectacle again. Plan your stargazing sessions in advance and witness the beauty of the cosmos unfold right from your backyard. </p>
+      </div>
+    </section>
+    <footer>
+      <div class="col">
+        <h3>Services</h3>
+        <ul>
+          <li><a href="index.html#simulation">Satellite Tracker</a></li>
+          <li><a href="index.html#rockets">Rocket Gallery</a></li>
+          <li><a href="index.html#about">About</a></li>
+        </ul>
+      </div>
+
+      <div class="col">
+        <h3>Extra Links</h3>
+        <ul>
+          <li><a href="">Homepage</a></li>
+          <li><a href="index_login.html">Login</a></li>
+          <li><a href="index_signup.html">Signup</a></li>
+          <li><a href="#">Profile</a></li>
+        </ul>
+      </div>
+
+      <div class="col">
+        <h3>Reach Out</h3>
+
+        <div class="social">
+          <a href="https://www.linkedin.com/in/jyot-kikani"><img src="../Images/Icons/linkedin.png" alt=""></a>
+          <a href="https://github.com/Jyot-Kikani"><img src="../Images/Icons/github.png" alt=""></a>
+          <a href="https://www.instagram.com/jyot_kikani05/"><img src="../Images/Icons/instagram.png" alt=""></a>
+          <a href="https://twitter.com/JyotKikani"><img src="../Images/Icons/twitter.png" alt=""></a>
+        </div>
+      </div>
+    </footer>
+    <script>
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth",
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

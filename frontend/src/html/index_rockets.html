@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rocket Gallery</title>
+    <link rel="stylesheet" href="../css/main/style_main.css" />
+    <link rel="stylesheet" href="../css/rockets/style_rockets.css" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="../Images/Icons/logo_transparent_white.png?v=1"
+    />
+    <style>
+      body {
+        /* background-color: rgb(5, 0, 35); */
+        background-image: url("../Images/Homepage/starry_bg.jpg");
+        background-size: 100% auto;
+        background-repeat: repeat-y;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="index.html#hero" class="logo">
+        <p>Orbit</p>
+        <img src="../Images/Icons/logo_transparent_white.png" alt="" />
+        <p>Pedia</p>
+      </a>
+      <nav>
+        <a href="index.html#simulation" target="_self">Satellite Tracker</a>
+        <a href="index.html#rockets">Rockets</a>
+        <a href="index.html#about">About</a>
+        <a href="index_login.html"><div class="profile">Login</div></a>
+      </nav>
+    </header>
+
+    <section class="buttons">
+      <div class="searchbar">
+        <input
+          type="text"
+          placeholder="Enter a Rocket or Company Name"
+          id="key"
+          name="key"
+          autocomplete="off"
+        />
+        <button class="search" onclick="displayRockets()">Search</button>
+      </div>
+      <div class="warn" id="warn">No Entry Found</div>
+    </section>
+    <section class="grid" id="rocketsContainer"></section>
+
+    <footer>
+      <div class="col">
+        <h3>Services</h3>
+        <ul>
+          <li><a href="index.html#simulation">Satellite Tracker</a></li>
+          <li><a href="index.html#rockets">Rocket Gallery</a></li>
+          <li><a href="index.html#about">About</a></li>
+        </ul>
+      </div>
+
+      <div class="col">
+        <h3>Extra Links</h3>
+        <ul>
+          <li><a href="">Homepage</a></li>
+          <li><a href="index_login.html">Login</a></li>
+          <li><a href="index_signup.html">Signup</a></li>
+          <li><a href="#">Profile</a></li>
+        </ul>
+      </div>
+
+      <div class="col">
+        <h3>Reach Out</h3>
+
+        <div class="social">
+          <a href="https://www.linkedin.com/in/jyot-kikani"><img src="../Images/Icons/linkedin.png" alt=""></a>
+          <a href="https://github.com/Jyot-Kikani"><img src="../Images/Icons/github.png" alt=""></a>
+          <a href="https://www.instagram.com/jyot_kikani05/"><img src="../Images/Icons/instagram.png" alt=""></a>
+          <a href="https://twitter.com/JyotKikani"><img src="../Images/Icons/twitter.png" alt=""></a>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="../js/rockets/script_rockets.js"></script>
+  </body>
+</html>
