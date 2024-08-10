@@ -18,15 +18,15 @@ async function fetchRocketData() {
   }
 }
 
-document.getElementById("key").addEventListener("keyup", function(event) {
-  // Checking if key pressed is ENTER or not 
-            // if the key pressed is ENTER 
-            // click listener on button is called 
-            if (event.key === "Enter") { 
-              displayRockets();
-              event.target.blur();
-          } 
-})
+// document.getElementById("key").addEventListener("keyup", function(event) {
+//   // Checking if key pressed is ENTER or not 
+//             // if the key pressed is ENTER 
+//             // click listener on button is called 
+//             if (event.key === "Enter") { 
+//               displayRockets();
+//               event.target.blur();
+//           } 
+// })
 
 
 

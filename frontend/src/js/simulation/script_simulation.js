@@ -365,6 +365,7 @@
 //     // Event listener for suggestion item click
 //     itemDiv.addEventListener("click", function () {
 //       // Change color of corresponding satellite
+//       console.log("CLICKED");
 //       setActiveSat(selectedSatellite);
 //     });
 //   });
@@ -396,7 +397,7 @@
 // Imports
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { getLatLngObj, getSatelliteInfo, getSatelliteName } from "tle.js";
+import { getGroundTracks, getLatLngObj, getOrbitTrack, getSatelliteInfo, getSatelliteName } from "tle.js";
 
 // Constants
 const scale = 0.02;
@@ -408,6 +409,7 @@ let satellites = [];
 let activeSatellite = null;
 let focussed = false;
 let previousIntersectedObject = null;
+let currentOrbitLine = null; // Global variable to store the current orbit line
 
 const pointer = new THREE.Vector2();
 const raycaster = new THREE.Raycaster();
@@ -490,7 +492,10 @@ function readFileAndGetTLEs(filePath, callback) {
       const tles = [];
 
       for (let i = 0; i < lines.length; i += 3) {
-        const tle = lines.slice(i, i + 3).join("\n").trim();
+        const tle = lines
+          .slice(i, i + 3)
+          .join("\n")
+          .trim();
         if (tle !== "") tles.push(tle);
       }
       callback(tles);
@@ -610,8 +615,7 @@ function resetPreviousIntersectedObject() {
 
 function highlightSatellite(intersectedObject) {
   const isNotActiveSatellite =
-    activeSatellite == null ||
-    intersectedObject !== activeSatellite.dotMesh;
+    activeSatellite == null || intersectedObject !== activeSatellite.dotMesh;
 
   if (isNotActiveSatellite) {
     intersectedObject.material.color.set(0x00ff00);
@@ -661,7 +665,27 @@ function resetCamera() {
   camera.lookAt(0, 0, 0);
 }
 
+// function setActiveSat(satellite) {
+//   console.log("RUN");
+//   if (activeSatellite != null) {
+//     activeSatellite.dotMesh.material.color.set(0xffffff);
+//   }
+
+//   activeSatellite = satellite;
+//   updateSatelliteInfoPanel(satellite);
+
+//   satellite.dotMesh.material.color.set(0xff0000);
+//   camera.position.set(
+//     satellite.position[0] + 20,
+//     satellite.position[1] + 20,
+//     satellite.position[2] + 20
+//   );
+//   focussed = true;
+//   checkbox.checked = true;
+// }
+
 function setActiveSat(satellite) {
+  // console.log(satellite.tle);
   if (activeSatellite != null) {
     activeSatellite.dotMesh.material.color.set(0xffffff);
   }
@@ -670,6 +694,8 @@ function setActiveSat(satellite) {
   updateSatelliteInfoPanel(satellite);
 
   satellite.dotMesh.material.color.set(0xff0000);
+
+  // Set camera position
   camera.position.set(
     satellite.position[0] + 20,
     satellite.position[1] + 20,
@@ -677,6 +703,21 @@ function setActiveSat(satellite) {
   );
   focussed = true;
   checkbox.checked = true;
+
+  // Remove previous orbit line
+  if (currentOrbitLine) {
+    scene.remove(currentOrbitLine);
+  }
+
+  // Calculate and create new orbit line
+  getGroundTracks({tle: satellite.tle, isLngLatFormat: false})
+  .then(function (orbits) {
+    console.log(orbits);
+    const orbitPositions = calculateOrbit(satellite, orbits[1]);
+    currentOrbitLine = createOrbitLine(orbitPositions);
+    scene.add(currentOrbitLine);
+  });
+  // const orbitPositions = calculateOrbit(satellite);
 }
 
 function updateSatelliteInfoPanel(satellite) {
@@ -688,30 +729,39 @@ function updateSatelliteInfoPanel(satellite) {
 }
 
 function hideSuggestions() {
-  document.getElementById("suggestions").style.visibility = "hidden";
+  const suggestionTimeout = setTimeout(() => {
+    console.log("Unfocussed");
+    document.getElementById("suggestions").style.display = "none";
+  }, 200); // Adjust the delay time as needed
+  // document.getElementById("suggestions").style.visibility = "hidden";
 }
 
 function showSuggestions() {
-  document.getElementById("suggestions").style.visibility = "visible";
-  console.log("SHOWN");
+  console.log("Focussed");
+  document.getElementById("suggestions").style.display = "block";
 }
 
 function filterSatellites(event) {
   const keyword = event.target.value.toUpperCase();
   const suggestions = document.getElementById("suggestions");
   suggestions.innerHTML = "";
+  document.getElementById("suggestions").style.display = "block";
+  document.getElementById("suggestions").style.height = "fit-content";
+  document.getElementById("suggestions").style.padding = "10px";
+  document.getElementById("suggestions").style.paddingBottom = "40px";
 
-  satellites.forEach((satellite) => {
-    if (satellite.satName.toUpperCase().includes(keyword)) {
-      const option = document.createElement("option");
-      option.value = satellite.satName;
-      option.textContent = satellite.satName;
-      option.visibility = "visible";
-      console.log(option);
-      option.addEventListener("click", () => {
-        setActiveSat(satellite);
+  satellites.forEach((selectedSatellite) => {
+    if (selectedSatellite.satName.toUpperCase().includes(keyword)) {
+      const itemDiv = document.createElement("div");
+      itemDiv.classList.add("item");
+      itemDiv.textContent = selectedSatellite.satName;
+      suggestions.appendChild(itemDiv);
+
+      // Event listener for suggestion item click
+      itemDiv.addEventListener("click", function () {
+        // Change color of corresponding satellite
+        setActiveSat(selectedSatellite);
       });
-      suggestions.appendChild(option);
     }
   });
 }
@@ -726,7 +776,7 @@ function updateActiveSatellite() {
     updateSatelliteInfoPanel(activeSatellite);
 
     if (focussed) {
-      camera.position.set(
+      camera.lookAt(
         activeSatellite.position[0] + 20,
         activeSatellite.position[1] + 20,
         activeSatellite.position[2] + 20
@@ -735,6 +785,31 @@ function updateActiveSatellite() {
     }
   }
 }
+
+function calculateOrbit(satellite, orbit) {
+  const positions = [];
+  for(var i = 0; i < orbit.length; i++) {
+    var position = calcPosFromLatLonRad(
+      orbit[i][0],
+      orbit[i][1],
+      radius + satellite.height * scale
+    );
+    positions.push(new THREE.Vector3(
+      position[0],
+      position[1],
+      position[2]
+    ));
+  }
+  
+  return positions;
+}
+
+function createOrbitLine(positions) {
+  const geometry = new THREE.BufferGeometry().setFromPoints(positions);
+  const material = new THREE.LineBasicMaterial({ color: 0x00ff00 });
+  return new THREE.Line(geometry, material);
+}
+
 
 function handleWindowResize() {
   const width = window.innerWidth;

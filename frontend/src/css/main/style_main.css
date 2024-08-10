@@ -417,6 +417,13 @@ section.rockets .image {
   /* box-shadow: 0px 0px 10px 15px rgb(0, 0, 0); */
 }
 
+section.classifier .image {
+  background-image: url("../../Images/Homepage/galaxy.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 section.simulation h1,
 section.rockets h1,
 section.about h1,
@@ -502,48 +509,12 @@ section.classifier .card:nth-child(2) {
   transition-delay: 200ms;
 }
 
-section.about {
-  background-image: url("../../Images/Homepage/starry_bg.jpg");
-  background-size: cover;
-  background-position: center;
-  flex-direction: row;
-  justify-content: space-around;
-}
-
-section.about .card {
-  width: 30%;
-  padding: 30px;
-  background-color: #7f7f7f5e;
-  backdrop-filter: blur(1px);
-  border-radius: 15px;
-  height: 420px;
-}
-
-section.about h1 {
-  font-size: 18px;
-}
-
-section.about p {
-  font-size: 14px;
-  margin-top: 10px;
-  line-height: 20px;
-  letter-spacing: 1.1px;
-}
-
-section.about .card:nth-child(2) {
-  transition-delay: 200ms;
-}
-
-section.about .card:nth-child(3) {
-  transition-delay: 400ms;
-}
-
 footer {
   display: flex;
   justify-content: center;
   align-items: top;
   background-color: #252525;
-  margin-top: 40px;
+  /* margin-top: 40px; */
 }
 
 footer .col:not(:first-child) {
@@ -589,4 +560,9 @@ footer li:hover {
 footer img {
   width: 20px;
   margin-right: 10px;
+}
+footer .social a {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
 }
