@@ -425,8 +425,9 @@ scene.add(earthMesh);
 addLighting(scene);
 
 // Load and Initialize Satellites
-const filePath = "/src/data/tles.txt";
-readFileAndGetTLEs(filePath, initializeSatellites);
+// const filePath = "/src/data/tles.txt";
+// readFileAndGetTLEs(filePath, initializeSatellites);
+fetchTLEsFromCelestrak(initializeSatellites);
 
 // Event Listeners
 window.addEventListener("mousemove", onMouseMove);
@@ -484,8 +485,10 @@ function addLighting(scene) {
   scene.add(sunLight);
 }
 
-function readFileAndGetTLEs(filePath, callback) {
-  fetch(filePath)
+function fetchTLEsFromCelestrak(callback) {
+  const url = 'https://celestrak.org/NORAD/elements/gp.php?GROUP=visual&FORMAT=tle';
+
+  fetch(url)
     .then((response) => response.text())
     .then((data) => {
       const lines = data.split("\n");
@@ -501,10 +504,32 @@ function readFileAndGetTLEs(filePath, callback) {
       callback(tles);
     })
     .catch((error) => {
-      console.error("Error reading file:", error);
+      console.error("Error fetching TLEs from Celestrak:", error);
       callback([]);
     });
 }
+
+// function readFileAndGetTLEs(filePath, callback) {
+//   fetch(filePath)
+//     .then((response) => response.text())
+//     .then((data) => {
+//       const lines = data.split("\n");
+//       const tles = [];
+
+//       for (let i = 0; i < lines.length; i += 3) {
+//         const tle = lines
+//           .slice(i, i + 3)
+//           .join("\n")
+//           .trim();
+//         if (tle !== "") tles.push(tle);
+//       }
+//       callback(tles);
+//     })
+//     .catch((error) => {
+//       console.error("Error reading file:", error);
+//       callback([]);
+//     });
+// }
 
 function initializeSatellites(tles) {
   satellites = tles.map((tle) => new Satellite(tle));
@@ -665,25 +690,6 @@ function resetCamera() {
   camera.lookAt(0, 0, 0);
 }
 
-// function setActiveSat(satellite) {
-//   console.log("RUN");
-//   if (activeSatellite != null) {
-//     activeSatellite.dotMesh.material.color.set(0xffffff);
-//   }
-
-//   activeSatellite = satellite;
-//   updateSatelliteInfoPanel(satellite);
-
-//   satellite.dotMesh.material.color.set(0xff0000);
-//   camera.position.set(
-//     satellite.position[0] + 20,
-//     satellite.position[1] + 20,
-//     satellite.position[2] + 20
-//   );
-//   focussed = true;
-//   checkbox.checked = true;
-// }
-
 function setActiveSat(satellite) {
   // console.log(satellite.tle);
   if (activeSatellite != null) {
@@ -809,7 +815,6 @@ function createOrbitLine(positions) {
   const material = new THREE.LineBasicMaterial({ color: 0x00ff00 });
   return new THREE.Line(geometry, material);
 }
-
 
 function handleWindowResize() {
   const width = window.innerWidth;
